@@ -22,23 +22,31 @@ passport.use(
         scope: ['user_read', 'user_subscriptions'],
     }, (accessToken, refreshToken, profile, done) => {
 
-        User.findOne({ twitch_id: profile.id })
-                .then((currentUser) => {
-                    if(currentUser) {
-                        console.log('user is: ' + currentUser)
-                        done(null, currentUser);
-                    } else {
-                        new User({
-                            username: profile.display_name,
-                            email: profile.email,
-                            profile_img_url: profile.profile_image_url,
-                            twitch_id: profile.id,
-                        }).save()
-                            .then((newUser) =>{
-                                console.log('new user created: ' + newUser);
-                                done(null, newUser);
-                            });
-                    }
-                })
-    })
-)
+    //     User.findOne({ twitch_id: profile.id })
+    //             .then((currentUser) => {
+    //                 if(currentUser) {
+    //                     console.log('user is: ' + currentUser)
+    //                     done(null, currentUser);
+    //                 } else {
+    //                     new User({
+    //                         username: profile.display_name,
+    //                         email: profile.email,
+    //                         profile_img_url: profile.profile_image_url,
+    //                         offline_img_url: profile.offline_image_url,
+    //                         twitch_id: profile.id,
+    //                         broadcaster_type: profile.broadcaster_type,
+    //                         description: profile.description,
+    //                         view_count: profile.view_count,
+    //                         provider: profile.provider,
+    //                     }).save()
+    //                         .then((newUser) =>{
+    //                             console.log('new user created: ' + newUser);
+    //                             done(null, newUser);
+    //                         });
+    //                 }
+    //             })
+    // })
+
+    console.log(profile);
+    }
+))
