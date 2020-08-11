@@ -15,16 +15,17 @@ router.get('/logout', (req, res) => {
 })
 
 //auth with twitch
-router.get('/twitch', passport.authenticate('twitch'));
+router.get('/twitch', passport.authenticate('twitch', { forceVerify: true }));
 
 //callback to be redirected to
 router.get('/twitch/callback', passport.authenticate('twitch', {failureRedirect: '/'}), (req, res) => {
 
-    res.json({
-        message: 'you have been logged in.',
-        user: req.user,
-    });
+    // res.json({
+    //     message: 'you have been logged in.',
+    //     user: req.user,
+    // });
     
+    res.redirect('http://localhost:3000');
 });
  
 
