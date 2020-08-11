@@ -4,6 +4,7 @@ const app = express();
 const passportSetup = require('./config/passport-setup');
 const mongooseSetup = require('./config/mongoose-setup');
 const authenticationRoutes = require('./api/authentication');
+const userRoutes = require('./api/users');
 const cookieSession = require('cookie-session');
 const passport = require('passport');
 const cors = require('cors');
@@ -32,6 +33,7 @@ app.use(cors(corsOptions));
 app.use(express.json());
 
 app.use('/api/auth', authenticationRoutes);
+app.use('/api/users', userRoutes);
 
 
 const port = process.env.PORT || 5000;
