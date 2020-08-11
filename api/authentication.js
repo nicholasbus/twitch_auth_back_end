@@ -15,13 +15,16 @@ router.get('/logout', (req, res) => {
 })
 
 //auth with twitch
-router.get('/twitch', passport.authenticate('twitch', {forceVerify: true}));
+router.get('/twitch', passport.authenticate('twitch'));
 
 //callback to be redirected to
 router.get('/twitch/callback', passport.authenticate('twitch', {failureRedirect: '/'}), (req, res) => {
+
     res.json({
-        message: 'you may view the secret, ' + req.user.username,
+        message: 'you have been logged in.',
+        user: req.user,
     });
+    
 });
  
 

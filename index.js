@@ -6,6 +6,7 @@ const mongooseSetup = require('./config/mongoose-setup');
 const authenticationRoutes = require('./api/authentication');
 const cookieSession = require('cookie-session');
 const passport = require('passport');
+const cors = require('cors');
 
 app.use(cookieSession({
     maxAge: 24 * 60 * 60 * 1000,
@@ -21,6 +22,14 @@ app.get('/', (req, res) => {
         message: "you have reached the root path 🍤",
     });
 })
+
+const corsOptions = {
+    origin: process.env.CORS_ORIGIN
+}
+
+app.use(cors(corsOptions));
+
+app.use(express.json());
 
 app.use('/api/auth', authenticationRoutes);
 
