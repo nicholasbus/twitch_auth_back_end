@@ -20,6 +20,7 @@ passport.use(
         clientSecret: process.env.TWITCH_CLIENT_SECRET,
         callbackURL: "http://localhost:5000/api/auth/twitch/callback",
         scope: ['user_read', 'user_subscriptions'],
+        responseType: 'user_id'
     }, (accessToken, refreshToken, profile, done) => {
 
         User.findOne({ twitch_id: profile.id })
