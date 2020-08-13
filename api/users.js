@@ -13,4 +13,13 @@ router.get('/', async (req, res) => {
     
 });
 
+router.get('/:id', async (req, res) => {
+    const user = await User.findOne({twitch_id: req.params.id});
+    
+    console.log('found user: ' + user)
+
+    res.json(user);
+    
+});
+
 module.exports = router;
