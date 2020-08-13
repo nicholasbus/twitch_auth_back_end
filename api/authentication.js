@@ -19,22 +19,23 @@ router.get('/twitch', passport.authenticate('twitch', { forceVerify: true }));
 //callback to be redirected to
 router.get('/twitch/callback', passport.authenticate('twitch', {failureRedirect: '/'}), (req, res) => {
    
-    res.redirect('http://localhost:3000' + `?twitch_id=${req.user.twitch_id}`);
+    let token = '';
     
-    /* BELOW IF I NEED AN AUTHENTICATION CODE FOR THE API */
+    axios({
+        method: 'post',
+        url: `https://id.twitch.tv/oauth2/token?client_id=${process.env.TWITCH_CLIENT_ID}&client_secret=${process.env.TWITCH_CLIENT_SECRET}&grant_type=client_credentials`
+    })
+    .then(result => {
+        token = result.data.access_token
+        res.redirect('http://localhost:3000' + `?twitch_id=${req.user.twitch_id}` + `&token=${token}`);
+    })
+    .catch(err => console.log(err));
 
-    // const CODE = req.query.code;
 
-    // axios.post(`https://id.twitch.tv/oauth2/token?client_id=${process.env.TWITCH_CLIENT_ID}&client_secret=${process.env.TWITCH_CLIENT_SECRET}&code=${CODE}&grant_type=authorization_code&redirect_uri=http://localost:5000/api/auth/twitch/access`)
-    //         .then(res => console.log(res))
-    //         .catch(err => console.log(err)); 
-    // // } else if (req.body.access_token && !req.params.code) {
-    // //     // passing the twitch user Id to the client so the client can make API calls based on the user
-    // //     res.redirect('http://localhost:3000' + `?twitch_id=${req.user.twitch_id}&access_token=${req.body.access_token}`); 
-    // // }
+
     
-
-
+    
+    // TODO: GET ACCESS TOKEN AND PASS IT TO THE REDIR URL THAT IS ABOVE
     
 });
  
