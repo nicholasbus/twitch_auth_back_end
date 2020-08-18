@@ -1,5 +1,4 @@
 const { Router } = require('express');
-const { use } = require('passport');
 const router = Router();
 
 const User = require('../models/User');

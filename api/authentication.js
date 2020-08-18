@@ -18,33 +18,13 @@ router.get('/twitch', passport.authenticate('twitch', { forceVerify: true }));
 
 //callback to be redirected to
 router.get('/twitch/callback', passport.authenticate('twitch', {failureRedirect: '/'}), (req, res) => {
-   
-    // CODE IF I NEED AN ACCESS TOKEN
-
-    // let token = '';
-    // axios({
-    //     method: 'post',
-    //     url: `https://id.twitch.tv/oauth2/token?client_id=${process.env.TWITCH_CLIENT_ID}&client_secret=${process.env.TWITCH_CLIENT_SECRET}&grant_type=client_credentials`
-    // })
-    // .then(result => {
-    //     token = result.data.access_token
-    //     res.redirect('http://localhost:3000/user_page' + `?twitch_id=${req.user.twitch_id}` + `&token=${token}`);
-    // })
-    // .catch(err => console.log(err));
-
     res.redirect('http://localhost:3000/user_page' + `?twitch_id=${req.user.twitch_id}`);
-    
 });
- 
-router.get('/twitch/access', (req, res) => {
-    console.log(req.body.access_token);
-})
 
 router.get('/', (req, res) => {
     res.json({
         message: "you have reached the /api route"
     });
 })
-
 
 module.exports = router;
